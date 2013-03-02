@@ -1,0 +1,49 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4459
+
+Neosnippet
+==========
+
+The Neosnippet plug-In adds snippet support to Vim. Snippets are
+small templates for commonly used code that you can fill in on the
+fly. To use snippets can increase your productivity in Vim a lot.
+The functionality of this plug-in is quite similar to plug-ins like
+snipMate.vim or snippetsEmu.vim. But since you can choose snippets with the
+[Neocomplecache](https://github.com/Shougo/neocomplcache) interface, you might
+have less trouble using them, because you do not have to remember each snippet
+name.
+
+Note: neocomplecache is NOT required! But recommended.
+
+Configuration
+-------------
+
+This is an example `~/.vimrc` configuration for Neosnippet. It is assumes you
+already have Neocomplecache configured. With the settings of the example, you
+can use the following keys:
+
+* `C-k` to select-and-expand a snippet from the Neocomplecache popup (Use `C-n`
+  and `C-p` to select it). `C-k` can also be used to jump to the next field in
+  the snippet.
+* `Tab` to select the next field to fill in the snippet.
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+If you want to use a different collection of snippets than the
+built-in ones, then you can set a path to the snippets with
+the `g:neosnippet#snippets_directory` variable (e.g [Honza's
+Snippets](https://github.com/honza/snipmate-snippets))
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+
